@@ -1,0 +1,68 @@
+#include <string>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void add(int num, string str, vector<vector<string>> &v){
+    v[num - 1].push_back(str);
+  }
+void output(int day, vector<vector<string>> &v){
+    cout << v[day - 1].size() << " ";
+    for(auto i : v[day - 1]){
+      cout << i << " ";
+    }
+    cout << endl;
+}
+void next(int &i, vector<int> p, vector<vector<string>> &v){
+  ++i;
+  if(i > 11) i = 0;
+  vector<vector<string>> v2 = v;
+  // cout << "size: " << v.size() << endl;
+  int s2 = p[i];
+  int g = s2 - 1;
+  if(v.size() < s2){
+    v.resize(s2);
+  }
+  if(v.size() > s2){
+    for(s2; v2.size() > s2; s2++){
+      v[g].insert(end(v[g]), begin(v2[s2]), end(v2[s2]));
+      v.pop_back();
+    }
+  }
+  v2.clear();
+}
+void out(vector<vector<string>> &v){
+  int k = 1;
+  for(auto i : v){
+    for(auto j : i){
+      cout << k << " " << j << endl;
+    }
+    k++;
+  }
+}
+int main(){
+  int Q, i = 0;
+  cin >> Q;
+  vector<int> p = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  vector<vector<string>> v;
+  v.resize(p[i], {});
+  for(int k = 0; k < Q; k++){
+    string s, str;
+    int num;
+    cin >> s;
+    if(s == "NEXT"){
+      next(i, p, v);
+    }
+    else if(s == "ADD"){
+      cin >> num >> str;
+      add(num, str, v);
+    }
+    else if(s == "DUMP"){
+      cin >> num;
+      output(num, v);
+    }
+    else if(s == "OUT"){
+      out(v);
+    }
+  }
+}
