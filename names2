@@ -1,0 +1,33 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
+using namespace std;
+struct FullName{
+  string name;
+  string surname;
+};
+string FindName(int year, map<int, string> &names) {
+
+}
+class Person {
+  map<int, string> first_names;
+  map<int, string> last_names;
+public:
+  void ChangeFirstName(int year, const string& first_name) {
+    first_names[year] = first_name;
+  }
+  void ChangeLastName(int year, const string& last_name) {
+    last_names[year] = last_name;
+  }
+  string GetFullName(int year) {
+    string name = FindName(year, first_names);
+    string surname = FindName(year, last_names);
+
+    if(name.empty())
+      return surname + " with unknown first name";
+    else if(surname.empty())
+      return name + ""
+  }
+  string GetFullNameWithHistory(int year);
+};
